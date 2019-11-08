@@ -1,0 +1,14 @@
+#zombie {
+    width: 200px;
+    height: 200px;
+}
+
+div {
+    font-family:sans-serif;
+    font-size: 200%;
+    text-align: center;
+}
+
+#score {
+    color: grey;
+}

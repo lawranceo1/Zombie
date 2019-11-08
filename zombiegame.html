@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Zombie Shooting Game</title>
+    <link rel = 'stylesheet'
+          type = 'text/css'
+          href = 'css/myStyle.css'/>
+    
+</head>
+<body>
+    
+    <img id = 'zombie' src = 'images/zombie.gif'>
+    <div>
+    <h2 id = 'score'>Score</h2>
+    <button id = 'reset'>Reset</button>
+    </div>
+    <audio id="pew" src="pew.wav"></audio>
+    
+    <script>
+    
+        let width = window.innerWidth - 250;
+        let height = window.innerHeight - 250;
+        let centerWidth = width / 2;
+        let centerHeight = height / 2;
+        let score = 0;
+        let button = height
+        document.getElementById('reset').style = "margin-top:" + button + "px";
+        
+        function scoreDisplay() {
+            document.getElementById('score').innerHTML = 'Score: ' + score;              
+        }
+        
+        function firstZombie() {
+            document.getElementById('zombie').style.position = 'absolute';
+            document.getElementById('zombie').style.left = centerWidth + 'px';
+            document.getElementById('zombie').style.top = centerHeight + 'px';
+            document.getElementById('score').innerHTML = 'Score: ' + score; 
+        }
+        
+        function zombieClicked() {
+            explosion = document.getElementById('zombie');
+            explosion.src="images/boom.png";
+            document.getElementById('pew').play();
+            score++;
+            scoreDisplay();
+            setTimeout(hideZombie, 250);
+        }
+
+        function hideZombie() {
+            document.getElementById('zombie').src = 'images/zombie.gif';
+            clearInterval(interval);
+            randomZombie();
+            interval = setInterval(randomZombie, 2000);
+        }
+        
+        function randomZombie() {
+            document.getElementById('zombie').style.position = "absolute";
+            document.getElementById('zombie').style.left = (Math.random()*width) + "px";
+            document.getElementById('zombie').style.top = (Math.random()*height) + "px";
+        }
+        
+        function reset() {
+            score = 0;
+            scoreDisplay();
+            firstZombie(); 
+        }
+
+        firstZombie();
+        document.getElementById('zombie').onclick = zombieClicked;
+        document.getElementById('reset').onclick = reset;
+        let interval = setInterval(randomZombie, 2000);
+
+    </script>    
+    
+</body>
+</html>
